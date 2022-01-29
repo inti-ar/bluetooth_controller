@@ -1,6 +1,6 @@
-# INTI Bluetooth Controller
+# bluetooth_controller
 
-A new Flutter project.
+Bluetooth controller
 
 ## Getting Started
 

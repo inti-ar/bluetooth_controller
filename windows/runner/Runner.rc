@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "ar.gob.inti" "\0"
-            VALUE "FileDescription", "A new Flutter project." "\0"
+            VALUE "FileDescription", "Bluetooth controller" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "inti_bluetooth_controller" "\0"
+            VALUE "InternalName", "bluetooth_controller" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 ar.gob.inti. All rights reserved." "\0"
-            VALUE "OriginalFilename", "inti_bluetooth_controller.exe" "\0"
-            VALUE "ProductName", "inti_bluetooth_controller" "\0"
+            VALUE "OriginalFilename", "bluetooth_controller.exe" "\0"
+            VALUE "ProductName", "bluetooth_controller" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

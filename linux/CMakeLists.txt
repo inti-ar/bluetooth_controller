@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "inti_bluetooth_controller")
-set(APPLICATION_ID "ar.gob.inti.inti_bluetooth_controller")
+set(BINARY_NAME "bluetooth_controller")
+set(APPLICATION_ID "ar.gob.inti.bluetooth_controller")
 
 cmake_policy(SET CMP0063 NEW)
 

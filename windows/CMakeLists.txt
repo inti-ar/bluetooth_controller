@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.15)
-project(inti_bluetooth_controller LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.14)
+project(bluetooth_controller LANGUAGES CXX)
 
-set(BINARY_NAME "inti_bluetooth_controller")
+set(BINARY_NAME "bluetooth_controller")
 
 cmake_policy(SET CMP0063 NEW)
 

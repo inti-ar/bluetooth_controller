@@ -1,4 +1,4 @@
-package ar.gob.inti.inti_bluetooth_controller
+package ar.gob.inti.bluetooth_controller
 
 import io.flutter.embedding.android.FlutterActivity
 

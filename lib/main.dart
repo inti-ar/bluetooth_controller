@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'INTI Bluetooth Controller',
+      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,13 +24,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'INTI Bluetooth Controller'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,10 +44,11 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   void _start() {}
 
   void _stop() {}
@@ -85,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Text(
               'Connect Bluetooth device and control it',
             ),
@@ -99,17 +102,17 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: _start,
             tooltip: 'Start',
-            child: Icon(Icons.play_arrow),
+            child: const Icon(Icons.play_arrow),
           ),
           FloatingActionButton(
             onPressed: _stop,
             tooltip: 'Stop',
-            child: Icon(Icons.stop),
+            child: const Icon(Icons.stop),
           ),
           FloatingActionButton(
             onPressed: _configure,
             tooltip: 'Configure',
-            child: Icon(Icons.settings),
+            child: const Icon(Icons.settings),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
