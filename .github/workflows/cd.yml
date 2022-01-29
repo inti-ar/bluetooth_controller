@@ -73,7 +73,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_JSONKEY }}
           packageName: ar.gob.inti.bluetooth_controller
-          releaseFiles: build/app/outputs/bundle/release/*.aab
+          releaseFiles: "*.aab"
           track: internal
           whatsNewDirectory: distribution/whatsnew
           mappingFile: build/app/outputs/mapping/release/mapping.txt
