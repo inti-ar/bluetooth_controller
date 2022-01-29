@@ -49,7 +49,7 @@ jobs:
       - name: Create Github Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/bundle/release/*.apk,build/app/outputs/bundle/release/*.aab"
+          artifacts: "build/app/outputs/bundle/release/*.aab"
           token: ${{ secrets.TOKEN }}
 
       - name: Save APPBUNDLE to Artifacts
