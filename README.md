@@ -1,4 +1,4 @@
-# bluetooth_controller
+# INTI Bluetooth Controller
 
 Bluetooth controller
 
