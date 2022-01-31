@@ -1,9 +1,12 @@
+// ignore_for_file: unnecessary_const
+
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-import './BluetoothDeviceListEntry.dart';
+import 'bluetooth_device_list_entry.dart';
 
 class DiscoveryPage extends StatefulWidget {
   /// If true, discovery starts on page start, otherwise user must press action button.
@@ -12,7 +15,7 @@ class DiscoveryPage extends StatefulWidget {
   const DiscoveryPage({this.start = true});
 
   @override
-  _DiscoveryPage createState() => new _DiscoveryPage();
+  _DiscoveryPage createState() => _DiscoveryPage();
 }
 
 class _DiscoveryPage extends State<DiscoveryPage> {
@@ -48,10 +51,11 @@ class _DiscoveryPage extends State<DiscoveryPage> {
       setState(() {
         final existingIndex = results.indexWhere(
             (element) => element.device.address == r.device.address);
-        if (existingIndex >= 0)
+        if (existingIndex >= 0) {
           results[existingIndex] = r;
-        else
+        } else {
           results.add(r);
+        }
       });
     });
 
@@ -77,20 +81,22 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     return Scaffold(
       appBar: AppBar(
         title: isDiscovering
-            ? Text('Discovering devices')
-            : Text('Discovered devices'),
+            ? const Text('Discovering devices')
+            : const Text('Discovered devices'),
         actions: <Widget>[
           isDiscovering
               ? FittedBox(
                   child: Container(
-                    margin: new EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    // ignore: unnecessary_new
+                    margin: const EdgeInsets.all(16.0),
+                    child: const CircularProgressIndicator(
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
                   ),
                 )
               : IconButton(
-                  icon: Icon(Icons.replay),
+                  icon: const Icon(Icons.replay),
                   onPressed: _restartDiscovery,
                 )
         ],
@@ -111,16 +117,24 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               try {
                 bool bonded = false;
                 if (device.isBonded) {
-                  print('Unbonding from ${device.address}...');
+                  if (kDebugMode) {
+                    print('Unbonding from ${device.address}...');
+                  }
                   await FlutterBluetoothSerial.instance
                       .removeDeviceBondWithAddress(address);
-                  print('Unbonding from ${device.address} has succed');
+                  if (kDebugMode) {
+                    print('Unbonding from ${device.address} has succed');
+                  }
                 } else {
-                  print('Bonding with ${device.address}...');
+                  if (kDebugMode) {
+                    print('Bonding with ${device.address}...');
+                  }
                   bonded = (await FlutterBluetoothSerial.instance
                       .bondDeviceAtAddress(address))!;
-                  print(
-                      'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
+                  if (kDebugMode) {
+                    print(
+                        'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
+                  }
                 }
                 setState(() {
                   results[results.indexOf(result)] = BluetoothDiscoveryResult(
@@ -140,10 +154,10 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Error occured while bonding'),
-                      content: Text("${ex.toString()}"),
+                      content: Text(ex.toString()),
                       actions: <Widget>[
-                        new TextButton(
-                          child: new Text("Close"),
+                        TextButton(
+                          child: const Text("Close"),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
