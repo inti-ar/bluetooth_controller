@@ -87,10 +87,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) => Consumer<BleStatus?>(
         builder: (_, status, __) {
           if (status == BleStatus.ready) {
-            return const DeviceListScreen();
+            return const MaterialApp(home: DeviceListScreen());
           } else {
             _requestPermissions();
-            return BleStatusScreen(status: status ?? BleStatus.unknown);
+            return MaterialApp(
+                home: BleStatusScreen(status: status ?? BleStatus.unknown));
           }
         },
       );

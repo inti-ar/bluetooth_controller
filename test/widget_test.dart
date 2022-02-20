@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bluetooth_controller/main.dart';
 
 void main() {
-  testWidgets('Home screen test', (WidgetTester tester) async {
+  testWidgets('Home Screen test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const HomeScreen());
   });
