@@ -216,44 +216,54 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
     final panels = <ExpansionPanel>[];
 
     widget.discoveredServices.asMap().forEach(
-          (index, service) => panels.add(
-            ExpansionPanel(
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Padding(
-                    padding: EdgeInsetsDirectional.only(start: 16.0),
-                    child: Text(
-                      'Characteristics',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+          (index, service) => _hasReadWriteCharacteristic(service)
+              ? panels.add(
+                  ExpansionPanel(
+                    body: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsetsDirectional.only(start: 16.0),
+                          child: Text(
+                            'Characteristics',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => _characteristicTile(
+                            service.characteristics[index],
+                            widget.deviceId,
+                          ),
+                          itemCount: service.characteristicIds.length,
+                        ),
+                      ],
+                    ),
+                    headerBuilder: (context, isExpanded) => ListTile(
+                      title: Text(
+                        '${service.serviceId}',
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ),
+                    isExpanded: _expandedItems.contains(index),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => _characteristicTile(
-                      service.characteristics[index],
-                      widget.deviceId,
-                    ),
-                    itemCount: service.characteristicIds.length,
-                  ),
-                ],
-              ),
-              headerBuilder: (context, isExpanded) => ListTile(
-                title: Text(
-                  '${service.serviceId}',
-                  style: const TextStyle(fontSize: 14),
-                ),
-              ),
-              isExpanded: _expandedItems.contains(index),
-            ),
-          ),
+                )
+              : null,
         );
 
     return panels;
   }
+
+  bool _hasReadWriteCharacteristic(DiscoveredService service) =>
+      service.characteristics.any(
+        (c) =>
+            c.isReadable &&
+            c.isWritableWithoutResponse &&
+            c.isWritableWithResponse,
+      );
 
   @override
   Widget build(BuildContext context) => widget.discoveredServices.isEmpty
