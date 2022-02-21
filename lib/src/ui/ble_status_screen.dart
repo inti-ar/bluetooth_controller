@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:bluetooth_enable_fork/bluetooth_enable_fork.dart';
 
+import '../../generated/l10n.dart';
+
 class BleStatusScreen extends StatelessWidget {
   const BleStatusScreen({required this.status, Key? key}) : super(key: key);
 
@@ -10,17 +12,17 @@ class BleStatusScreen extends StatelessWidget {
   String determineText(BleStatus status) {
     switch (status) {
       case BleStatus.unsupported:
-        return "This device does not support Bluetooth";
+        return S.current.bleStatusUnsupported;
       case BleStatus.unauthorized:
-        return "Authorize the INTI Bluetooth Controller app to use Bluetooth and location";
+        return S.current.bleStatusUnauthorized;
       case BleStatus.poweredOff:
-        return "Bluetooth is powered off on your device turn it on";
+        return S.current.bleStatusPoweredOff;
       case BleStatus.locationServicesDisabled:
-        return "Enable location services";
+        return S.current.bleStatusLocationDisabled;
       case BleStatus.ready:
-        return "Bluetooth is up and running";
+        return S.current.bleStatusReady;
       default:
-        return "Waiting to fetch Bluetooth status $status";
+        return S.current.bleStatusDefault(status);
     }
   }
 
@@ -31,7 +33,7 @@ class BleStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('INTI Bluetooth Controller'),
+          title: Text(S.of(context).title),
         ),
         body: Center(
           child: Column(
@@ -43,7 +45,7 @@ class BleStatusScreen extends StatelessWidget {
                       onPressed: (() {
                         _enableBT();
                       }),
-                      child: const Text('Turn on Bluetooth'),
+                      child: Text(S.of(context).bleTurnOnBluetooth),
                     )
                   : Container(),
             ],

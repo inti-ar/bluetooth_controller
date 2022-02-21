@@ -1,0 +1,13 @@
+{
+  "title": "INTI Bluetooth Controller",
+  "bleStatusReady": "Bluetooth is up and running",
+  "bleStatusLocationDisabled": "Enable location services",
+  "bleStatusPoweredOff": "Bluetooth is powered off on your device turn it on",
+  "bleStatusUnauthorized": "Authorize the INTI Bluetooth Controller app to use Bluetooth and location",
+  "bleStatusUnsupported": "This device does not support Bluetooth",
+  "bleStatusDefault": "Waiting to fetch Bluetooth status {status}",
+  "bleTurnOnBluetooth": "Turn on Bluetooth",
+  "deviceListTitle": "Scan for devices",
+  "deviceListSearchServiceUUID": "Service UUID:",
+  "deviceListInvalidUUID": "Invalid UUID format"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Botonera Bluetooth",
+  "bleStatusReady": "Bluetooth habilitado y funcionando",
+  "bleStatusLocationDisabled": "Habilitá los servicios de ubicación para poder conectar el Bluetooth con otros dispositivos",
+  "bleStatusPoweredOff": "El Bluetooth está deshabilitado en tu dispositivo",
+  "bleStatusUnauthorized": "Autorizá la aplicación para utilizar Bluetooth y la ubicación",
+  "bleStatusUnsupported": "Este dispositivo no soporta Bluetooth",
+  "bleStatusDefault": "Esperando para obtener el estado {status}",
+  "bleTurnOnBluetooth": "Activá Bluetooth",
+  "deviceListTitle": "Escáner de dispositivos",
+  "deviceListSearchServiceUUID": "UUID de servicio:",
+  "deviceListInvalidUUID": "Formato de UUID inválido"
+}

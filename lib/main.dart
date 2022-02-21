@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
+
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:bluetooth_controller/src/ble/ble_device_connector.dart';
 import 'package:bluetooth_controller/src/ble/ble_device_interactor.dart';
@@ -62,7 +66,14 @@ void main() {
         ),
       ],
       child: MaterialApp(
-        title: 'INTI Bluetooth Controller',
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        title: "INTI Bluetooth Controller",
         color: _themeColor,
         theme: ThemeData(primarySwatch: _themeColor),
         home: const HomeScreen(),
@@ -87,10 +98,25 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) => Consumer<BleStatus?>(
         builder: (_, status, __) {
           if (status == BleStatus.ready) {
-            return const MaterialApp(home: DeviceListScreen());
+            return MaterialApp(
+                localizationsDelegates: const [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+                home: const DeviceListScreen());
           } else {
             _requestPermissions();
             return MaterialApp(
+                localizationsDelegates: const [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
                 home: BleStatusScreen(status: status ?? BleStatus.unknown));
           }
         },

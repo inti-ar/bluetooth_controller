@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../widgets.dart';
 import 'device_detail/device_detail_screen.dart';
 
+import '../../generated/l10n.dart';
+
 class DeviceListScreen extends StatelessWidget {
   const DeviceListScreen({Key? key}) : super(key: key);
 
@@ -76,7 +78,7 @@ class _DeviceListState extends State<_DeviceList> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Scan for devices'),
+          title: Text(S.of(context).deviceListTitle),
         ),
         body: Column(
           children: [
@@ -86,7 +88,7 @@ class _DeviceListState extends State<_DeviceList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
-                  const Text('Service UUID (2, 4, 16 bytes):'),
+                  Text(S.of(context).deviceListSearchServiceUUID),
                   TextField(
                     controller: _uuidController,
                     enabled: !widget.scannerState.scanIsInProgress,
@@ -94,7 +96,7 @@ class _DeviceListState extends State<_DeviceList> {
                         errorText:
                             _uuidController.text.isEmpty || _isValidUuidInput()
                                 ? null
-                                : 'Invalid UUID format'),
+                                : S.of(context).deviceListInvalidUUID),
                     autocorrect: false,
                   ),
                   const SizedBox(height: 16),
