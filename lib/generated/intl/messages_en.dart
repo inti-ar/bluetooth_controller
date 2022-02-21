@@ -22,6 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Waiting to fetch Bluetooth status ${status}";
 
+  static String m1(deviceID, deviceRSSI) =>
+      "\$${deviceID}\\nRSSI: \$${deviceRSSI}";
+
+  static String m2(count) => "count: ${count}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "bleStatusDefault": m0,
@@ -37,10 +42,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "This device does not support Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Turn on Bluetooth"),
+        "deviceListDiscoveredDeviceSubtitle": m1,
+        "deviceListDiscoveredDevicesCount": m2,
         "deviceListInvalidUUID":
             MessageLookupByLibrary.simpleMessage("Invalid UUID format"),
+        "deviceListScan": MessageLookupByLibrary.simpleMessage("Scan"),
         "deviceListSearchServiceUUID":
             MessageLookupByLibrary.simpleMessage("Service UUID:"),
+        "deviceListStop": MessageLookupByLibrary.simpleMessage("Stop"),
+        "deviceListTapToConnect": MessageLookupByLibrary.simpleMessage(
+            "Tap a device to connect to it"),
+        "deviceListTapToScan": MessageLookupByLibrary.simpleMessage(
+            "Enter a UUID above and start to scan"),
         "deviceListTitle":
             MessageLookupByLibrary.simpleMessage("Scan for devices"),
         "title":

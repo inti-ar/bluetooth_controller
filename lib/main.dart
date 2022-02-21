@@ -95,30 +95,20 @@ class HomeScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer<BleStatus?>(
-        builder: (_, status, __) {
-          if (status == BleStatus.ready) {
-            return MaterialApp(
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                home: const DeviceListScreen());
-          } else {
-            _requestPermissions();
-            return MaterialApp(
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                home: BleStatusScreen(status: status ?? BleStatus.unknown));
-          }
-        },
-      );
+  Widget build(BuildContext context) =>
+      Consumer<BleStatus?>(builder: (_, status, __) {
+        _requestPermissions();
+        return MaterialApp(
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          home: status == BleStatus.ready
+              ? const DeviceListScreen()
+              : BleStatusScreen(status: status ?? BleStatus.unknown),
+        );
+      });
 }

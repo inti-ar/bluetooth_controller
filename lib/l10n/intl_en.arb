@@ -9,5 +9,11 @@
   "bleTurnOnBluetooth": "Turn on Bluetooth",
   "deviceListTitle": "Scan for devices",
   "deviceListSearchServiceUUID": "Service UUID:",
-  "deviceListInvalidUUID": "Invalid UUID format"
+  "deviceListInvalidUUID": "Invalid UUID format",
+  "deviceListScan": "Scan",
+  "deviceListStop": "Stop",
+  "deviceListTapToScan": "Enter a UUID above and start to scan",
+  "deviceListTapToConnect": "Tap a device to connect to it",
+  "deviceListDiscoveredDevicesCount": "count: {count}",
+  "deviceListDiscoveredDeviceSubtitle": "${deviceID}\\nRSSI: ${deviceRSSI}"
 }

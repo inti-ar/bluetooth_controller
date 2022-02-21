@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Esperando para obtener el estado ${status}";
 
+  static String m1(deviceID, deviceRSSI) => "${deviceID}\\nRSSI: ${deviceRSSI}";
+
+  static String m2(count) => "count: \$${count}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "bleStatusDefault": m0,
@@ -37,10 +41,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Este dispositivo no soporta Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Activá Bluetooth"),
+        "deviceListDiscoveredDeviceSubtitle": m1,
+        "deviceListDiscoveredDevicesCount": m2,
         "deviceListInvalidUUID":
             MessageLookupByLibrary.simpleMessage("Formato de UUID inválido"),
+        "deviceListScan": MessageLookupByLibrary.simpleMessage("Escanear"),
         "deviceListSearchServiceUUID":
-            MessageLookupByLibrary.simpleMessage("UUID de servicio:"),
+            MessageLookupByLibrary.simpleMessage("UUID del servicio:"),
+        "deviceListStop": MessageLookupByLibrary.simpleMessage("Parar"),
+        "deviceListTapToConnect": MessageLookupByLibrary.simpleMessage(
+            "Seleccioná un dispositivo para conectar"),
+        "deviceListTapToScan": MessageLookupByLibrary.simpleMessage(
+            "Ingresá un UUID debajo y comenzá a escanear"),
         "deviceListTitle":
             MessageLookupByLibrary.simpleMessage("Escáner de dispositivos"),
         "title": MessageLookupByLibrary.simpleMessage("Botonera Bluetooth")

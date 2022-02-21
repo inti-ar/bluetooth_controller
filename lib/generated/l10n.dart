@@ -159,6 +159,67 @@ class S {
       args: [],
     );
   }
+
+  /// `Scan`
+  String get deviceListScan {
+    return Intl.message(
+      'Scan',
+      name: 'deviceListScan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop`
+  String get deviceListStop {
+    return Intl.message(
+      'Stop',
+      name: 'deviceListStop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a UUID above and start to scan`
+  String get deviceListTapToScan {
+    return Intl.message(
+      'Enter a UUID above and start to scan',
+      name: 'deviceListTapToScan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap a device to connect to it`
+  String get deviceListTapToConnect {
+    return Intl.message(
+      'Tap a device to connect to it',
+      name: 'deviceListTapToConnect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `count: {count}`
+  String deviceListDiscoveredDevicesCount(Object count) {
+    return Intl.message(
+      'count: $count',
+      name: 'deviceListDiscoveredDevicesCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `${deviceID}\nRSSI: ${deviceRSSI}`
+  String deviceListDiscoveredDeviceSubtitle(
+      Object deviceID, Object deviceRSSI) {
+    return Intl.message(
+      '\$$deviceID\\nRSSI: \$$deviceRSSI',
+      name: 'deviceListDiscoveredDeviceSubtitle',
+      desc: '',
+      args: [deviceID, deviceRSSI],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

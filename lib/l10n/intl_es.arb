@@ -8,6 +8,12 @@
   "bleStatusDefault": "Esperando para obtener el estado {status}",
   "bleTurnOnBluetooth": "Activá Bluetooth",
   "deviceListTitle": "Escáner de dispositivos",
-  "deviceListSearchServiceUUID": "UUID de servicio:",
-  "deviceListInvalidUUID": "Formato de UUID inválido"
+  "deviceListSearchServiceUUID": "UUID del servicio:",
+  "deviceListInvalidUUID": "Formato de UUID inválido",
+  "deviceListScan": "Escanear",
+  "deviceListStop": "Parar",
+  "deviceListTapToScan": "Ingresá un UUID debajo y comenzá a escanear",
+  "deviceListTapToConnect": "Seleccioná un dispositivo para conectar",
+  "deviceListDiscoveredDevicesCount": "count: ${count}",
+  "deviceListDiscoveredDeviceSubtitle": "{deviceID}\\nRSSI: {deviceRSSI}"
 }

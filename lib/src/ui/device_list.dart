@@ -104,14 +104,14 @@ class _DeviceListState extends State<_DeviceList> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        child: const Text('Scan'),
+                        child: Text(S.of(context).deviceListScan),
                         onPressed: !widget.scannerState.scanIsInProgress &&
                                 _isValidUuidInput()
                             ? _startScanning
                             : null,
                       ),
                       ElevatedButton(
-                        child: const Text('Stop'),
+                        child: Text(S.of(context).deviceListStop),
                         onPressed: widget.scannerState.scanIsInProgress
                             ? widget.stopScan
                             : null,
@@ -124,8 +124,8 @@ class _DeviceListState extends State<_DeviceList> {
                     children: [
                       Expanded(
                         child: Text(!widget.scannerState.scanIsInProgress
-                            ? 'Enter a UUID above and tap start to begin scanning'
-                            : 'Tap a device to connect to it'),
+                            ? S.of(context).deviceListTapToScan
+                            : S.of(context).deviceListTapToConnect),
                       ),
                       if (widget.scannerState.scanIsInProgress ||
                           widget.scannerState.discoveredDevices.isNotEmpty)
@@ -133,7 +133,9 @@ class _DeviceListState extends State<_DeviceList> {
                           padding:
                               const EdgeInsetsDirectional.only(start: 18.0),
                           child: Text(
-                              'count: ${widget.scannerState.discoveredDevices.length}'),
+                            S.of(context).deviceListDiscoveredDevicesCount(
+                                widget.scannerState.discoveredDevices.length),
+                          ),
                         ),
                     ],
                   ),
@@ -147,7 +149,10 @@ class _DeviceListState extends State<_DeviceList> {
                     .map(
                       (device) => ListTile(
                         title: Text(device.name),
-                        subtitle: Text("${device.id}\nRSSI: ${device.rssi}"),
+                        subtitle: Text(
+                          S.of(context).deviceListDiscoveredDeviceSubtitle(
+                              device.id, device.rssi),
+                        ),
                         leading: const BluetoothIcon(),
                         onTap: () async {
                           widget.stopScan();
