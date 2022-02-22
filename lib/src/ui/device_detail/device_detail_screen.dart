@@ -4,7 +4,7 @@ import 'package:bluetooth_controller/src/ble/ble_device_connector.dart';
 import 'package:bluetooth_controller/src/ui/device_detail/device_log_tab.dart';
 import 'package:provider/provider.dart';
 
-import 'device_interaction_tab.dart';
+import 'service_selector.dart';
 
 class DeviceDetailScreen extends StatelessWidget {
   final DiscoveredDevice device;

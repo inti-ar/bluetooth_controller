@@ -15,5 +15,5 @@
   "deviceListTapToScan": "Ingresá un UUID debajo y comenzá a escanear",
   "deviceListTapToConnect": "Seleccioná un dispositivo para conectar",
   "deviceListDiscoveredDevicesCount": "count: ${count}",
-  "deviceListDiscoveredDeviceSubtitle": "{deviceID}\\nRSSI: {deviceRSSI}"
+  "deviceListDiscoveredDeviceSubtitle": "{deviceID}\nRSSI: {deviceRSSI}"
 }

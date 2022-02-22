@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(status) => "Waiting to fetch Bluetooth status ${status}";
 
   static String m1(deviceID, deviceRSSI) =>
-      "\$${deviceID}\\nRSSI: \$${deviceRSSI}";
+      "\$${deviceID}\nRSSI: \$${deviceRSSI}";
 
   static String m2(count) => "count: ${count}";
 

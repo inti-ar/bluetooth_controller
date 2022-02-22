@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'characteristic_interaction_dialog.dart';
 
-part 'device_interaction_tab.g.dart';
+part 'service_selector.g.dart';
 //ignore_for_file: annotate_overrides
 
 class DeviceInteractionTab extends StatelessWidget {
@@ -164,104 +164,76 @@ class _ServiceDiscoveryList extends StatefulWidget {
 }
 
 class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
-  late final List<int> _expandedItems;
+  DiscoveredService? selectedService;
+  DiscoveredCharacteristic? selectedReadCharacteristic;
+  DiscoveredCharacteristic? selectedWriteCharacteristic;
 
   @override
   void initState() {
-    _expandedItems = [];
     super.initState();
   }
 
-  String _charactisticsSummary(DiscoveredCharacteristic c) {
-    final props = <String>[];
-    if (c.isReadable) {
-      props.add("read");
-    }
-    if (c.isWritableWithoutResponse) {
-      props.add("write without response");
-    }
-    if (c.isWritableWithResponse) {
-      props.add("write with response");
-    }
-    if (c.isNotifiable) {
-      props.add("notify");
-    }
-    if (c.isIndicatable) {
-      props.add("indicate");
-    }
-
-    return props.join("\n");
-  }
-
-  Widget _characteristicTile(
-          DiscoveredCharacteristic characteristic, String deviceId) =>
-      ListTile(
-        onTap: () => showDialog<void>(
-            context: context,
-            builder: (context) => CharacteristicInteractionDialog(
-                  characteristic: QualifiedCharacteristic(
-                      characteristicId: characteristic.characteristicId,
-                      serviceId: characteristic.serviceId,
-                      deviceId: deviceId),
-                )),
-        title: Text(
-          '${characteristic.characteristicId}\n(${_charactisticsSummary(characteristic)})',
-          style: const TextStyle(
-            fontSize: 14,
-          ),
-        ),
+  // Service Selector
+  Widget _serviceSelector() => DropdownButton<DiscoveredService>(
+        hint: const Text("Service UUID"),
+        value: selectedService,
+        onChanged: (service) => setState(() => selectedService = service),
+        items: widget.discoveredServices
+            .map(
+              (service) => DropdownMenuItem<DiscoveredService>(
+                value: service,
+                child: Text(
+                  '${service.serviceId}',
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+            )
+            .toList(),
       );
 
-  List<ExpansionPanel> buildPanels() {
-    final panels = <ExpansionPanel>[];
-
-    widget.discoveredServices.asMap().forEach(
-          (index, service) => true || _hasReadWriteCharacteristic(service)
-              ? panels.add(
-                  ExpansionPanel(
-                    body: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsetsDirectional.only(start: 16.0),
-                          child: Text(
-                            'Characteristics',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => _characteristicTile(
-                            service.characteristics[index],
-                            widget.deviceId,
-                          ),
-                          itemCount: service.characteristicIds.length,
-                        ),
-                      ],
+  // Read Characteristic Selector
+  Widget _readCharacteristicSelector() =>
+      DropdownButton<DiscoveredCharacteristic>(
+          hint: const Text("Read Characteristic UUID"),
+          value: selectedReadCharacteristic,
+          items: selectedService?.characteristics
+              .where((c) => c.isReadable && c.isNotifiable)
+              .map((c) => DropdownMenuItem(
+                    value: c,
+                    child: Text(
+                      '${c.characteristicId}',
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    headerBuilder: (context, isExpanded) => ListTile(
-                      title: Text(
-                        '${service.serviceId}',
-                        style: const TextStyle(fontSize: 14),
-                      ),
+                  ))
+              .toList(),
+          onChanged: (DiscoveredCharacteristic? c) {
+            setState(() {
+              selectedReadCharacteristic = c!;
+            });
+          });
+
+  // Write Characteristic Selector
+  Widget _writeCharacteristicSelector() =>
+      DropdownButton<DiscoveredCharacteristic>(
+          hint: const Text("Write Characteristic UUID"),
+          value: selectedWriteCharacteristic,
+          items: selectedService?.characteristics
+              .where((c) =>
+                  (c.isWritableWithResponse || c.isWritableWithoutResponse) &&
+                  c.isIndicatable)
+              .map((c) => DropdownMenuItem(
+                    value: c,
+                    child: Text(
+                      '${c.characteristicId}',
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    isExpanded: _expandedItems.contains(index),
-                  ),
-                )
-              : null,
-        );
-
-    return panels;
-  }
-
-  bool _hasReadWriteCharacteristic(DiscoveredService service) =>
-      service.characteristics.any((c) => c.isReadable && c.isNotifiable) ||
-      service.characteristics.any((c) =>
-          (c.isWritableWithResponse || c.isWritableWithoutResponse) &&
-          c.isIndicatable);
+                  ))
+              .toList(),
+          onChanged: (DiscoveredCharacteristic? c) {
+            setState(() {
+              selectedWriteCharacteristic = c!;
+            });
+          });
 
   @override
   Widget build(BuildContext context) => widget.discoveredServices.isEmpty
@@ -272,21 +244,26 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
             start: 20.0,
             end: 20.0,
           ),
-          child: ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                setState(() {
-                  if (isExpanded) {
-                    _expandedItems.remove(index);
-                  } else {
-                    _expandedItems.add(index);
-                  }
-                });
-              });
-            },
-            children: [
-              ...buildPanels(),
-            ],
-          ),
+          child: Column(children: [
+            _serviceSelector(),
+
+            // Select a read characteristic
+            selectedService != null &&
+                    selectedService?.characteristics
+                            .any((c) => c.isReadable && c.isNotifiable) ==
+                        true
+                ? _readCharacteristicSelector()
+                : const SizedBox(),
+
+            // Select a write characteristic
+            selectedService != null &&
+                    selectedService?.characteristics.any((c) =>
+                            (c.isWritableWithResponse ||
+                                c.isWritableWithoutResponse) &&
+                            c.isIndicatable) ==
+                        true
+                ? _writeCharacteristicSelector()
+                : const SizedBox(),
+          ]),
         );
 }

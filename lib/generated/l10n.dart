@@ -214,7 +214,7 @@ class S {
   String deviceListDiscoveredDeviceSubtitle(
       Object deviceID, Object deviceRSSI) {
     return Intl.message(
-      '\$$deviceID\\nRSSI: \$$deviceRSSI',
+      '\$$deviceID\nRSSI: \$$deviceRSSI',
       name: 'deviceListDiscoveredDeviceSubtitle',
       desc: '',
       args: [deviceID, deviceRSSI],

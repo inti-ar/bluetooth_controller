@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Esperando para obtener el estado ${status}";
 
-  static String m1(deviceID, deviceRSSI) => "${deviceID}\\nRSSI: ${deviceRSSI}";
+  static String m1(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
 
   static String m2(count) => "count: \$${count}";
 
