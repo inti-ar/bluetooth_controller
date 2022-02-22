@@ -15,5 +15,7 @@
   "deviceListTapToScan": "Enter a UUID above and start to scan",
   "deviceListTapToConnect": "Tap a device to connect to it",
   "deviceListDiscoveredDevicesCount": "count: {count}",
-  "deviceListDiscoveredDeviceSubtitle": "${deviceID}\nRSSI: ${deviceRSSI}"
+  "deviceListDiscoveredDeviceSubtitle": "${deviceID}\nRSSI: ${deviceRSSI}",
+  "chatOwnMessageSender": "Me",
+  "chatDeviceMessageSender": "Device"
 }

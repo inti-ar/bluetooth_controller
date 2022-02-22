@@ -4,7 +4,7 @@ import 'package:bluetooth_controller/src/ble/ble_device_connector.dart';
 import 'package:bluetooth_controller/src/ui/device_detail/device_log_tab.dart';
 import 'package:provider/provider.dart';
 
-import 'service_selector.dart';
+import 'chat_tab.dart';
 
 class DeviceDetailScreen extends StatelessWidget {
   final DiscoveredDevice device;
@@ -57,7 +57,7 @@ class _DeviceDetail extends StatelessWidget {
             ),
             body: TabBarView(
               children: [
-                DeviceInteractionTab(
+                ChatTab(
                   device: device,
                 ),
                 const DeviceLogTab(),

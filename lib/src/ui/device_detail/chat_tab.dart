@@ -5,15 +5,15 @@ import 'package:bluetooth_controller/src/ble/ble_device_interactor.dart';
 import 'package:functional_data/functional_data.dart';
 import 'package:provider/provider.dart';
 
-import 'characteristic_interaction_dialog.dart';
+import 'characteristic_interaction_chat.dart';
 
-part 'service_selector.g.dart';
+part 'chat_tab.g.dart';
 //ignore_for_file: annotate_overrides
 
-class DeviceInteractionTab extends StatelessWidget {
+class ChatTab extends StatelessWidget {
   final DiscoveredDevice device;
 
-  const DeviceInteractionTab({
+  const ChatTab({
     required this.device,
     Key? key,
   }) : super(key: key);
@@ -23,8 +23,8 @@ class DeviceInteractionTab extends StatelessWidget {
       Consumer3<BleDeviceConnector, ConnectionStateUpdate, BleDeviceInteractor>(
         builder: (_, deviceConnector, connectionStateUpdate, serviceDiscoverer,
                 __) =>
-            _DeviceInteractionTab(
-          viewModel: DeviceInteractionViewModel(
+            _ChatTab(
+          viewModel: ChatViewModel(
               deviceId: device.id,
               connectionStatus: connectionStateUpdate.connectionState,
               deviceConnector: deviceConnector,
@@ -36,8 +36,8 @@ class DeviceInteractionTab extends StatelessWidget {
 
 @immutable
 @FunctionalData()
-class DeviceInteractionViewModel extends $DeviceInteractionViewModel {
-  const DeviceInteractionViewModel({
+class ChatViewModel extends $ChatViewModel {
+  const ChatViewModel({
     required this.deviceId,
     required this.connectionStatus,
     required this.deviceConnector,
@@ -62,19 +62,19 @@ class DeviceInteractionViewModel extends $DeviceInteractionViewModel {
   }
 }
 
-class _DeviceInteractionTab extends StatefulWidget {
-  const _DeviceInteractionTab({
+class _ChatTab extends StatefulWidget {
+  const _ChatTab({
     required this.viewModel,
     Key? key,
   }) : super(key: key);
 
-  final DeviceInteractionViewModel viewModel;
+  final ChatViewModel viewModel;
 
   @override
-  _DeviceInteractionTabState createState() => _DeviceInteractionTabState();
+  _ChatTabState createState() => _ChatTabState();
 }
 
-class _DeviceInteractionTabState extends State<_DeviceInteractionTab> {
+class _ChatTabState extends State<_ChatTab> {
   late List<DiscoveredService> discoveredServices;
 
   @override
@@ -235,35 +235,70 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
             });
           });
 
+  _selectorInterface() => Padding(
+        padding: const EdgeInsetsDirectional.only(
+          top: 20.0,
+          start: 20.0,
+          end: 20.0,
+        ),
+        child: Column(children: [
+          _serviceSelector(),
+
+          // Select a read characteristic
+          selectedService != null &&
+                  selectedService?.characteristics
+                          .any((c) => c.isReadable && c.isNotifiable) ==
+                      true
+              ? _readCharacteristicSelector()
+              : const SizedBox(),
+
+          // Select a write characteristic
+          selectedService != null &&
+                  selectedService?.characteristics.any((c) =>
+                          (c.isWritableWithResponse ||
+                              c.isWritableWithoutResponse) &&
+                          c.isIndicatable) ==
+                      true
+              ? _writeCharacteristicSelector()
+              : const SizedBox(),
+        ]),
+      );
+
+  _chatInterface() => CharacteristicInteractionChat(
+        readCharacteristic: QualifiedCharacteristic(
+            characteristicId: selectedReadCharacteristic!.characteristicId,
+            serviceId: selectedReadCharacteristic!.serviceId,
+            deviceId: widget.deviceId),
+        writeCharacteristic: QualifiedCharacteristic(
+            characteristicId: selectedWriteCharacteristic!.characteristicId,
+            serviceId: selectedWriteCharacteristic!.serviceId,
+            deviceId: widget.deviceId),
+      );
+
   @override
   Widget build(BuildContext context) => widget.discoveredServices.isEmpty
       ? const SizedBox()
-      : Padding(
-          padding: const EdgeInsetsDirectional.only(
-            top: 20.0,
-            start: 20.0,
-            end: 20.0,
-          ),
-          child: Column(children: [
-            _serviceSelector(),
-
-            // Select a read characteristic
-            selectedService != null &&
-                    selectedService?.characteristics
-                            .any((c) => c.isReadable && c.isNotifiable) ==
-                        true
-                ? _readCharacteristicSelector()
-                : const SizedBox(),
-
-            // Select a write characteristic
-            selectedService != null &&
-                    selectedService?.characteristics.any((c) =>
-                            (c.isWritableWithResponse ||
-                                c.isWritableWithoutResponse) &&
-                            c.isIndicatable) ==
-                        true
-                ? _writeCharacteristicSelector()
-                : const SizedBox(),
-          ]),
-        );
+      : selectedService == null ||
+              selectedReadCharacteristic == null ||
+              selectedWriteCharacteristic == null
+          ? _selectorInterface()
+          : Column(children: [
+              _chatInterface(),
+              // button to back to the service selector
+              ElevatedButton(
+                onPressed: () => setState(() {
+                  selectedService = null;
+                  selectedReadCharacteristic = null;
+                  selectedWriteCharacteristic = null;
+                }),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Icon(Icons.arrow_back),
+                    SizedBox(width: 8.0),
+                    Text("Back"),
+                  ],
+                ),
+              ),
+            ]);
 }

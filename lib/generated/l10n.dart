@@ -220,6 +220,26 @@ class S {
       args: [deviceID, deviceRSSI],
     );
   }
+
+  /// `Me`
+  String get chatOwnMessageSender {
+    return Intl.message(
+      'Me',
+      name: 'chatOwnMessageSender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device`
+  String get chatDeviceMessageSender {
+    return Intl.message(
+      'Device',
+      name: 'chatDeviceMessageSender',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

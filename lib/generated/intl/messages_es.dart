@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Este dispositivo no soporta Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Activá Bluetooth"),
+        "chatDeviceMessageSender":
+            MessageLookupByLibrary.simpleMessage("Device"),
+        "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Me"),
         "deviceListDiscoveredDeviceSubtitle": m1,
         "deviceListDiscoveredDevicesCount": m2,
         "deviceListInvalidUUID":
