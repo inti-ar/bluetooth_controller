@@ -15,7 +15,16 @@
   "deviceListTapToScan": "Enter a UUID above and start to scan",
   "deviceListTapToConnect": "Tap a device to connect to it",
   "deviceListDiscoveredDevicesCount": "count: {count}",
-  "deviceListDiscoveredDeviceSubtitle": "${deviceID}\nRSSI: ${deviceRSSI}",
+  "deviceListDiscoveredDeviceSubtitle": "{deviceID}\nRSSI: {deviceRSSI}",
   "chatOwnMessageSender": "Me",
-  "chatDeviceMessageSender": "Device"
+  "chatDeviceMessageSender": "Device",
+  "chatDeviceID": "ID: {deviceID}",
+  "chatConnectionStatus": "Status: {connectionStatus}",
+  "chatConnect": "Connect",
+  "chatDisconnect": "Disconnect",
+  "chatDiscoverServices": "Discover Services",
+  "chatServiceSelectorHint": "Service UUID",
+  "chatReadCharacteristicSelectorHint": "Read Characteristic UUID",
+  "chatWriteCharacteristicSelectorHint": "Write Characteristic UUID",
+  "chatBackButtonText": "Back"
 }

@@ -78,6 +78,7 @@ class _CharacteristicInteractionChatState
   void initState() {
     messages = <Message>[];
     textEditingController = TextEditingController();
+    subscribeCharacteristic();
     super.initState();
   }
 
@@ -87,15 +88,18 @@ class _CharacteristicInteractionChatState
     super.dispose();
   }
 
+  void onNewReceivedData(List<int> data) {
+    messages.add(Message(
+        sender: S.of(context).chatDeviceMessageSender,
+        content: String.fromCharCodes(data)));
+  }
+
   Future<void> subscribeCharacteristic() async {
     subscribeStream = widget
         .subscribeToCharacteristic(widget.characteristicRead)
         .listen((event) {
       setState(() {
-        messages.add(Message(
-          content: event.toString(),
-          sender: S.of(context).chatDeviceMessageSender,
-        ));
+        onNewReceivedData(event);
       });
     });
   }
@@ -165,7 +169,6 @@ class _CharacteristicInteractionChatState
 
   @override
   Widget build(BuildContext context) {
-    subscribeCharacteristic();
     return Column(children: [
       SizedBox(
         height: 400,

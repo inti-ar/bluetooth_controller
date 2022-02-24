@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -82,11 +84,14 @@ void main() {
   );
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   Future<void> _requestPermissions() async {
     await Permission.bluetooth.request().isGranted;
     await Permission.bluetoothConnect.request().isGranted;
@@ -95,20 +100,20 @@ class HomeScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Consumer<BleStatus?>(builder: (_, status, __) {
-        _requestPermissions();
-        return MaterialApp(
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          home: status == BleStatus.ready
-              ? const DeviceListScreen()
-              : BleStatusScreen(status: status ?? BleStatus.unknown),
-        );
-      });
+  Widget build(BuildContext context) => Consumer<BleStatus?>(
+        builder: (_, status, __) {
+          _requestPermissions();
+          return MaterialApp(
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+              home: status == BleStatus.ready
+                  ? const DeviceListScreen()
+                  : BleStatusScreen(status: status ?? BleStatus.unknown));
+        },
+      );
 }

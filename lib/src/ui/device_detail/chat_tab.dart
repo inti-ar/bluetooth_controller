@@ -5,6 +5,8 @@ import 'package:bluetooth_controller/src/ble/ble_device_interactor.dart';
 import 'package:functional_data/functional_data.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
+
 import 'characteristic_interaction_chat.dart';
 
 part 'chat_tab.g.dart';
@@ -100,14 +102,15 @@ class _ChatTabState extends State<_ChatTab> {
                   padding: const EdgeInsetsDirectional.only(
                       top: 8.0, bottom: 16.0, start: 16.0),
                   child: Text(
-                    "ID: ${widget.viewModel.deviceId}",
+                    S.of(context).chatDeviceID(widget.viewModel.deviceId),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16.0),
                   child: Text(
-                    "Status: ${widget.viewModel.connectionStatus}",
+                    S.of(context).chatConnectionStatus(
+                        widget.viewModel.connectionStatus),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -120,19 +123,19 @@ class _ChatTabState extends State<_ChatTab> {
                         onPressed: !widget.viewModel.deviceConnected
                             ? widget.viewModel.connect
                             : null,
-                        child: const Text("Connect"),
+                        child: Text(S.of(context).chatConnect),
                       ),
                       ElevatedButton(
                         onPressed: widget.viewModel.deviceConnected
                             ? widget.viewModel.disconnect
                             : null,
-                        child: const Text("Disconnect"),
+                        child: Text(S.of(context).chatDisconnect),
                       ),
                       ElevatedButton(
                         onPressed: widget.viewModel.deviceConnected
                             ? discoverServices
                             : null,
-                        child: const Text("Discover Services"),
+                        child: Text(S.of(context).chatDiscoverServices),
                       ),
                     ],
                   ),
@@ -175,10 +178,13 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
 
   // Service Selector
   Widget _serviceSelector() => DropdownButton<DiscoveredService>(
-        hint: const Text("Service UUID"),
+        hint: Text(S.of(context).chatServiceSelectorHint),
         value: selectedService,
         onChanged: (service) => setState(() => selectedService = service),
         items: widget.discoveredServices
+            .where((service) =>
+                service.characteristics.any(isReadableCharacteristic) &&
+                service.characteristics.any(isWritableCharacteristic))
             .map(
               (service) => DropdownMenuItem<DiscoveredService>(
                 value: service,
@@ -194,10 +200,10 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
   // Read Characteristic Selector
   Widget _readCharacteristicSelector() =>
       DropdownButton<DiscoveredCharacteristic>(
-          hint: const Text("Read Characteristic UUID"),
+          hint: Text(S.of(context).chatReadCharacteristicSelectorHint),
           value: selectedReadCharacteristic,
           items: selectedService?.characteristics
-              .where((c) => c.isReadable && c.isNotifiable)
+              .where(isReadableCharacteristic)
               .map((c) => DropdownMenuItem(
                     value: c,
                     child: Text(
@@ -215,12 +221,10 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
   // Write Characteristic Selector
   Widget _writeCharacteristicSelector() =>
       DropdownButton<DiscoveredCharacteristic>(
-          hint: const Text("Write Characteristic UUID"),
+          hint: Text(S.of(context).chatWriteCharacteristicSelectorHint),
           value: selectedWriteCharacteristic,
           items: selectedService?.characteristics
-              .where((c) =>
-                  (c.isWritableWithResponse || c.isWritableWithoutResponse) &&
-                  c.isIndicatable)
+              .where(isWritableCharacteristic)
               .map((c) => DropdownMenuItem(
                     value: c,
                     child: Text(
@@ -235,6 +239,9 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
             });
           });
 
+  bool isWritableCharacteristic(c) =>
+      c.isWritableWithResponse || c.isWritableWithoutResponse;
+
   _selectorInterface() => Padding(
         padding: const EdgeInsetsDirectional.only(
           top: 20.0,
@@ -247,22 +254,22 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
           // Select a read characteristic
           selectedService != null &&
                   selectedService?.characteristics
-                          .any((c) => c.isReadable && c.isNotifiable) ==
+                          .any(isReadableCharacteristic) ==
                       true
               ? _readCharacteristicSelector()
               : const SizedBox(),
 
           // Select a write characteristic
           selectedService != null &&
-                  selectedService?.characteristics.any((c) =>
-                          (c.isWritableWithResponse ||
-                              c.isWritableWithoutResponse) &&
-                          c.isIndicatable) ==
+                  selectedService?.characteristics
+                          .any(isWritableCharacteristic) ==
                       true
               ? _writeCharacteristicSelector()
               : const SizedBox(),
         ]),
       );
+
+  bool isReadableCharacteristic(c) => c.isNotifiable || c.isIndicatable;
 
   _chatInterface() => CharacteristicInteractionChat(
         readCharacteristic: QualifiedCharacteristic(
@@ -293,10 +300,10 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
                 }),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Icon(Icons.arrow_back),
-                    SizedBox(width: 8.0),
-                    Text("Back"),
+                  children: <Widget>[
+                    const Icon(Icons.arrow_back),
+                    const SizedBox(width: 8.0),
+                    Text(S.of(context).chatBackButtonText),
                   ],
                 ),
               ),

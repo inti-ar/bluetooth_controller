@@ -12,10 +12,19 @@
   "deviceListInvalidUUID": "Formato de UUID inválido",
   "deviceListScan": "Escanear",
   "deviceListStop": "Parar",
-  "deviceListTapToScan": "Ingresá un UUID debajo y comenzá a escanear",
+  "deviceListTapToScan": "Ingresá un UUID arriba y comenzá a escanear",
   "deviceListTapToConnect": "Seleccioná un dispositivo para conectar",
-  "deviceListDiscoveredDevicesCount": "count: ${count}",
+  "deviceListDiscoveredDevicesCount": "cantidad: {count}",
   "deviceListDiscoveredDeviceSubtitle": "{deviceID}\nRSSI: {deviceRSSI}",
-  "chatOwnMessageSender": "Me",
-  "chatDeviceMessageSender": "Device"
+  "chatOwnMessageSender": "Yo",
+  "chatDeviceMessageSender": "Dispositivo",
+  "chatDeviceID": "ID: {deviceID}",
+  "chatConnectionStatus": "Estado: {connectionStatus}",
+  "chatConnect": "Conectar",
+  "chatDisconnect": "Desconectar",
+  "chatDiscoverServices": "Encontrar servicios",
+  "chatServiceSelectorHint": "UUID del servicio",
+  "chatReadCharacteristicSelectorHint": "UUID de característica de lectura",
+  "chatWriteCharacteristicSelectorHint": "UUID de característica de escritura",
+  "chatBackButtonText": "Volver"
 }

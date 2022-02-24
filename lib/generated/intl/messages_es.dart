@@ -22,9 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Esperando para obtener el estado ${status}";
 
-  static String m1(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
+  static String m1(connectionStatus) => "Estado: ${connectionStatus}";
 
-  static String m2(count) => "count: \$${count}";
+  static String m2(deviceID) => "ID: ${deviceID}";
+
+  static String m3(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
+
+  static String m4(count) => "cantidad: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -41,11 +45,26 @@ class MessageLookup extends MessageLookupByLibrary {
             "Este dispositivo no soporta Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Activá Bluetooth"),
+        "chatBackButtonText": MessageLookupByLibrary.simpleMessage("Volver"),
+        "chatConnect": MessageLookupByLibrary.simpleMessage("Conectar"),
+        "chatConnectionStatus": m1,
+        "chatDeviceID": m2,
         "chatDeviceMessageSender":
-            MessageLookupByLibrary.simpleMessage("Device"),
-        "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Me"),
-        "deviceListDiscoveredDeviceSubtitle": m1,
-        "deviceListDiscoveredDevicesCount": m2,
+            MessageLookupByLibrary.simpleMessage("Dispositivo"),
+        "chatDisconnect": MessageLookupByLibrary.simpleMessage("Desconectar"),
+        "chatDiscoverServices":
+            MessageLookupByLibrary.simpleMessage("Encontrar servicios"),
+        "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Yo"),
+        "chatReadCharacteristicSelectorHint":
+            MessageLookupByLibrary.simpleMessage(
+                "UUID de característica de lectura"),
+        "chatServiceSelectorHint":
+            MessageLookupByLibrary.simpleMessage("UUID del servicio"),
+        "chatWriteCharacteristicSelectorHint":
+            MessageLookupByLibrary.simpleMessage(
+                "UUID de característica de escritura"),
+        "deviceListDiscoveredDeviceSubtitle": m3,
+        "deviceListDiscoveredDevicesCount": m4,
         "deviceListInvalidUUID":
             MessageLookupByLibrary.simpleMessage("Formato de UUID inválido"),
         "deviceListScan": MessageLookupByLibrary.simpleMessage("Escanear"),
@@ -55,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deviceListTapToConnect": MessageLookupByLibrary.simpleMessage(
             "Seleccioná un dispositivo para conectar"),
         "deviceListTapToScan": MessageLookupByLibrary.simpleMessage(
-            "Ingresá un UUID debajo y comenzá a escanear"),
+            "Ingresá un UUID arriba y comenzá a escanear"),
         "deviceListTitle":
             MessageLookupByLibrary.simpleMessage("Escáner de dispositivos"),
         "title": MessageLookupByLibrary.simpleMessage("Botonera Bluetooth")

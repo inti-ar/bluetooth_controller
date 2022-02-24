@@ -75,10 +75,29 @@ class _DeviceListState extends State<_DeviceList> {
     widget.startScan(text.isEmpty ? [] : [Uuid.parse(_uuidController.text)]);
   }
 
+  _languageSelector() => DropdownButton<Locale>(
+        icon: const Icon(
+          Icons.language,
+          color: Colors.white,
+        ),
+        underline: Container(height: 0),
+        items: S.delegate.supportedLocales
+            .map((l) => DropdownMenuItem(value: l, child: Text(l.languageCode)))
+            .toList(),
+        onChanged: (lang) {
+          setState(() {
+            S.load(lang!);
+          });
+        },
+      );
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(S.of(context).deviceListTitle),
+          actions: <Widget>[
+            _languageSelector(),
+          ],
         ),
         body: Column(
           children: [

@@ -210,11 +210,11 @@ class S {
     );
   }
 
-  /// `${deviceID}\nRSSI: ${deviceRSSI}`
+  /// `{deviceID}\nRSSI: {deviceRSSI}`
   String deviceListDiscoveredDeviceSubtitle(
       Object deviceID, Object deviceRSSI) {
     return Intl.message(
-      '\$$deviceID\nRSSI: \$$deviceRSSI',
+      '$deviceID\nRSSI: $deviceRSSI',
       name: 'deviceListDiscoveredDeviceSubtitle',
       desc: '',
       args: [deviceID, deviceRSSI],
@@ -236,6 +236,96 @@ class S {
     return Intl.message(
       'Device',
       name: 'chatDeviceMessageSender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ID: {deviceID}`
+  String chatDeviceID(Object deviceID) {
+    return Intl.message(
+      'ID: $deviceID',
+      name: 'chatDeviceID',
+      desc: '',
+      args: [deviceID],
+    );
+  }
+
+  /// `Status: {connectionStatus}`
+  String chatConnectionStatus(Object connectionStatus) {
+    return Intl.message(
+      'Status: $connectionStatus',
+      name: 'chatConnectionStatus',
+      desc: '',
+      args: [connectionStatus],
+    );
+  }
+
+  /// `Connect`
+  String get chatConnect {
+    return Intl.message(
+      'Connect',
+      name: 'chatConnect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disconnect`
+  String get chatDisconnect {
+    return Intl.message(
+      'Disconnect',
+      name: 'chatDisconnect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover Services`
+  String get chatDiscoverServices {
+    return Intl.message(
+      'Discover Services',
+      name: 'chatDiscoverServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service UUID`
+  String get chatServiceSelectorHint {
+    return Intl.message(
+      'Service UUID',
+      name: 'chatServiceSelectorHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Read Characteristic UUID`
+  String get chatReadCharacteristicSelectorHint {
+    return Intl.message(
+      'Read Characteristic UUID',
+      name: 'chatReadCharacteristicSelectorHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write Characteristic UUID`
+  String get chatWriteCharacteristicSelectorHint {
+    return Intl.message(
+      'Write Characteristic UUID',
+      name: 'chatWriteCharacteristicSelectorHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get chatBackButtonText {
+    return Intl.message(
+      'Back',
+      name: 'chatBackButtonText',
       desc: '',
       args: [],
     );

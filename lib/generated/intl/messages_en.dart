@@ -22,10 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Waiting to fetch Bluetooth status ${status}";
 
-  static String m1(deviceID, deviceRSSI) =>
-      "\$${deviceID}\nRSSI: \$${deviceRSSI}";
+  static String m1(connectionStatus) => "Status: ${connectionStatus}";
 
-  static String m2(count) => "count: ${count}";
+  static String m2(deviceID) => "ID: ${deviceID}";
+
+  static String m3(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
+
+  static String m4(count) => "count: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -42,11 +45,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "This device does not support Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Turn on Bluetooth"),
+        "chatBackButtonText": MessageLookupByLibrary.simpleMessage("Back"),
+        "chatConnect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "chatConnectionStatus": m1,
+        "chatDeviceID": m2,
         "chatDeviceMessageSender":
             MessageLookupByLibrary.simpleMessage("Device"),
+        "chatDisconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+        "chatDiscoverServices":
+            MessageLookupByLibrary.simpleMessage("Discover Services"),
         "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Me"),
-        "deviceListDiscoveredDeviceSubtitle": m1,
-        "deviceListDiscoveredDevicesCount": m2,
+        "chatReadCharacteristicSelectorHint":
+            MessageLookupByLibrary.simpleMessage("Read Characteristic UUID"),
+        "chatServiceSelectorHint":
+            MessageLookupByLibrary.simpleMessage("Service UUID"),
+        "chatWriteCharacteristicSelectorHint":
+            MessageLookupByLibrary.simpleMessage("Write Characteristic UUID"),
+        "deviceListDiscoveredDeviceSubtitle": m3,
+        "deviceListDiscoveredDevicesCount": m4,
         "deviceListInvalidUUID":
             MessageLookupByLibrary.simpleMessage("Invalid UUID format"),
         "deviceListScan": MessageLookupByLibrary.simpleMessage("Scan"),
