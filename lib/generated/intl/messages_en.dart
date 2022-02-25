@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "This device does not support Bluetooth"),
         "bleTurnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Turn on Bluetooth"),
+        "bleTurnOnLocation":
+            MessageLookupByLibrary.simpleMessage("Turn on Location"),
         "chatBackButtonText": MessageLookupByLibrary.simpleMessage("Back"),
         "chatConnect": MessageLookupByLibrary.simpleMessage("Connect"),
         "chatConnectionStatus": m1,

@@ -30,9 +30,8 @@ class CharacteristicInteractionChat extends StatelessWidget {
             characteristicRead: readCharacteristic,
             characteristicWrite: writeCharacteristic,
             readCharacteristic: interactor.readCharacteristic,
-            writeWithResponse: interactor.writeCharacterisiticWithResponse,
-            writeWithoutResponse:
-                interactor.writeCharacterisiticWithoutResponse,
+            writeWithResponse: interactor.writeCharacteristicWithResponse,
+            writeWithoutResponse: interactor.writeCharacteristicWithoutResponse,
             subscribeToCharacteristic: interactor.subScribeToCharacteristic,
           ));
 }
@@ -88,10 +87,14 @@ class _CharacteristicInteractionChatState
     super.dispose();
   }
 
+  String parseData(List<int> data) {
+    return String.fromCharCodes(data);
+  }
+
   void onNewReceivedData(List<int> data) {
     messages.add(Message(
         sender: S.of(context).chatDeviceMessageSender,
-        content: String.fromCharCodes(data)));
+        content: parseData(data)));
   }
 
   Future<void> subscribeCharacteristic() async {
@@ -104,19 +107,14 @@ class _CharacteristicInteractionChatState
     });
   }
 
-  List<int> _parseInput() => textEditingController.text
-      .split(',')
-      .map(
-        int.parse,
-      )
-      .toList();
+  List<int> _parseInput() => textEditingController.text.codeUnits;
 
   Future<void> writeCharacteristicWithResponse() async {
     final value = _parseInput();
     await widget.writeWithResponse(widget.characteristicWrite, value);
     setState(() {
       messages.add(Message(
-          content: value.toString(),
+          content: parseData(value),
           sender: S.of(context).chatOwnMessageSender));
     });
   }
@@ -126,7 +124,7 @@ class _CharacteristicInteractionChatState
     await widget.writeWithoutResponse(widget.characteristicWrite, value);
     setState(() {
       messages.add(Message(
-          content: value.toString(),
+          content: parseData(value),
           sender: S.of(context).chatOwnMessageSender));
     });
   }
@@ -146,10 +144,8 @@ class _CharacteristicInteractionChatState
               border: OutlineInputBorder(),
               labelText: 'Value',
             ),
-            keyboardType: const TextInputType.numberWithOptions(
-              decimal: true,
-              signed: false,
-            ),
+            // text input type text
+            keyboardType: TextInputType.text,
           ),
         ),
         Row(

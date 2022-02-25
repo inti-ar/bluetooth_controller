@@ -34,7 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "bleStatusDefault": m0,
         "bleStatusLocationDisabled": MessageLookupByLibrary.simpleMessage(
-            "Habilitá los servicios de ubicación para poder conectar el Bluetooth con otros dispositivos"),
+            "Habilitá los servicios de ubicación"),
         "bleStatusPoweredOff": MessageLookupByLibrary.simpleMessage(
             "El Bluetooth está deshabilitado en tu dispositivo"),
         "bleStatusReady": MessageLookupByLibrary.simpleMessage(
@@ -44,7 +44,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "bleStatusUnsupported": MessageLookupByLibrary.simpleMessage(
             "Este dispositivo no soporta Bluetooth"),
         "bleTurnOnBluetooth":
-            MessageLookupByLibrary.simpleMessage("Activá Bluetooth"),
+            MessageLookupByLibrary.simpleMessage("Activar Bluetooth"),
+        "bleTurnOnLocation":
+            MessageLookupByLibrary.simpleMessage("Activar la ubicación"),
         "chatBackButtonText": MessageLookupByLibrary.simpleMessage("Volver"),
         "chatConnect": MessageLookupByLibrary.simpleMessage("Conectar"),
         "chatConnectionStatus": m1,

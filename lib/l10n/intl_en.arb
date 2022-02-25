@@ -26,5 +26,6 @@
   "chatServiceSelectorHint": "Service UUID",
   "chatReadCharacteristicSelectorHint": "Read Characteristic UUID",
   "chatWriteCharacteristicSelectorHint": "Write Characteristic UUID",
-  "chatBackButtonText": "Back"
+  "chatBackButtonText": "Back",
+  "bleTurnOnLocation": "Turn on Location"
 }

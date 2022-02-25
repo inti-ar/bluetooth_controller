@@ -75,118 +75,93 @@ class _DeviceListState extends State<_DeviceList> {
     widget.startScan(text.isEmpty ? [] : [Uuid.parse(_uuidController.text)]);
   }
 
-  _languageSelector() => DropdownButton<Locale>(
-        icon: const Icon(
-          Icons.language,
-          color: Colors.white,
-        ),
-        underline: Container(height: 0),
-        items: S.delegate.supportedLocales
-            .map((l) => DropdownMenuItem(value: l, child: Text(l.languageCode)))
-            .toList(),
-        onChanged: (lang) {
-          setState(() {
-            S.load(lang!);
-          });
-        },
-      );
-
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(S.of(context).deviceListTitle),
-          actions: <Widget>[
-            _languageSelector(),
-          ],
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16),
-                  Text(S.of(context).deviceListSearchServiceUUID),
-                  TextField(
-                    controller: _uuidController,
-                    enabled: !widget.scannerState.scanIsInProgress,
-                    decoration: InputDecoration(
-                        errorText:
-                            _uuidController.text.isEmpty || _isValidUuidInput()
-                                ? null
-                                : S.of(context).deviceListInvalidUUID),
-                    autocorrect: false,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        child: Text(S.of(context).deviceListScan),
-                        onPressed: !widget.scannerState.scanIsInProgress &&
-                                _isValidUuidInput()
-                            ? _startScanning
-                            : null,
-                      ),
-                      ElevatedButton(
-                        child: Text(S.of(context).deviceListStop),
-                        onPressed: widget.scannerState.scanIsInProgress
-                            ? widget.stopScan
-                            : null,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(!widget.scannerState.scanIsInProgress
-                            ? S.of(context).deviceListTapToScan
-                            : S.of(context).deviceListTapToConnect),
-                      ),
-                      if (widget.scannerState.scanIsInProgress ||
-                          widget.scannerState.discoveredDevices.isNotEmpty)
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.only(start: 18.0),
-                          child: Text(
-                            S.of(context).deviceListDiscoveredDevicesCount(
-                                widget.scannerState.discoveredDevices.length),
-                          ),
+  Widget build(BuildContext context) => Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Text(S.of(context).deviceListSearchServiceUUID),
+                TextField(
+                  controller: _uuidController,
+                  enabled: !widget.scannerState.scanIsInProgress,
+                  decoration: InputDecoration(
+                      errorText:
+                          _uuidController.text.isEmpty || _isValidUuidInput()
+                              ? null
+                              : S.of(context).deviceListInvalidUUID),
+                  autocorrect: false,
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      child: Text(S.of(context).deviceListScan),
+                      onPressed: !widget.scannerState.scanIsInProgress &&
+                              _isValidUuidInput()
+                          ? _startScanning
+                          : null,
+                    ),
+                    ElevatedButton(
+                      child: Text(S.of(context).deviceListStop),
+                      onPressed: widget.scannerState.scanIsInProgress
+                          ? widget.stopScan
+                          : null,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(!widget.scannerState.scanIsInProgress
+                          ? S.of(context).deviceListTapToScan
+                          : S.of(context).deviceListTapToConnect),
+                    ),
+                    if (widget.scannerState.scanIsInProgress ||
+                        widget.scannerState.discoveredDevices.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 18.0),
+                        child: Text(
+                          S.of(context).deviceListDiscoveredDevicesCount(
+                              widget.scannerState.discoveredDevices.length),
                         ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Flexible(
-              child: ListView(
-                children: widget.scannerState.discoveredDevices
-                    .map(
-                      (device) => ListTile(
-                        title: Text(device.name),
-                        subtitle: Text(
-                          S.of(context).deviceListDiscoveredDeviceSubtitle(
-                              device.id, device.rssi),
-                        ),
-                        leading: const BluetoothIcon(),
-                        onTap: () async {
-                          widget.stopScan();
-                          await Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      DeviceDetailScreen(device: device)));
-                        },
                       ),
-                    )
-                    .toList(),
-              ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+          Flexible(
+            child: ListView(
+              children: widget.scannerState.discoveredDevices
+                  .map(
+                    (device) => ListTile(
+                      title: Text(device.name),
+                      subtitle: Text(
+                        S.of(context).deviceListDiscoveredDeviceSubtitle(
+                            device.id, device.rssi),
+                      ),
+                      leading: const BluetoothIcon(),
+                      onTap: () async {
+                        widget.stopScan();
+                        await Navigator.push<void>(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    DeviceDetailScreen(device: device)));
+                      },
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       );
 }

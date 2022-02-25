@@ -330,6 +330,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Turn on Location`
+  String get bleTurnOnLocation {
+    return Intl.message(
+      'Turn on Location',
+      name: 'bleTurnOnLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
