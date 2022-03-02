@@ -56,6 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatDisconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
         "chatDiscoverServices":
             MessageLookupByLibrary.simpleMessage("Discover Services"),
+        "chatOffMessage": MessageLookupByLibrary.simpleMessage("Off"),
+        "chatOnMessage": MessageLookupByLibrary.simpleMessage("On"),
+        "chatOriginalTextOff": MessageLookupByLibrary.simpleMessage("0"),
+        "chatOriginalTextOn": MessageLookupByLibrary.simpleMessage("1"),
         "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Me"),
         "chatReadCharacteristicSelectorHint":
             MessageLookupByLibrary.simpleMessage("Read Characteristic UUID"),

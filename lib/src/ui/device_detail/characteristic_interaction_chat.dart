@@ -116,6 +116,7 @@ class _CharacteristicInteractionChatState
       messages.add(Message(
           content: parseData(value),
           sender: S.of(context).chatOwnMessageSender));
+      textEditingController.clear();
     });
   }
 
@@ -126,73 +127,86 @@ class _CharacteristicInteractionChatState
       messages.add(Message(
           content: parseData(value),
           sender: S.of(context).chatOwnMessageSender));
+      textEditingController.clear();
     });
   }
 
-  Widget sectionHeader(String text) => Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      );
+  Function() get writeCharacteristic => writeCharacteristicWithResponse;
 
   List<Widget> get writeSection => [
-        sectionHeader('Write characteristic'),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: TextField(
-            controller: textEditingController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Value',
-            ),
-            // text input type text
-            keyboardType: TextInputType.text,
-          ),
-        ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              onPressed: writeCharacteristicWithResponse,
-              child: const Text('With response'),
-            ),
+                onPressed: () => {
+                      textEditingController = TextEditingController(
+                          text: S.of(context).chatOriginalTextOn),
+                      writeCharacteristic()
+                    },
+                child: Text(S.of(context).chatOnMessage)),
             ElevatedButton(
-              onPressed: writeCharacteristicWithoutResponse,
-              child: const Text('Without response'),
-            ),
+                onPressed: () => {
+                      textEditingController = TextEditingController(
+                          text: S.of(context).chatOriginalTextOff),
+                      writeCharacteristic()
+                    },
+                child: Text(S.of(context).chatOffMessage)),
           ],
+        ),
+        TextField(
+          controller: textEditingController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            icon: const Icon(Icons.message),
+            labelText: 'Message',
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.send),
+              onPressed: writeCharacteristic,
+            ),
+          ),
+          // text input type text
+          keyboardType: TextInputType.text,
         ),
       ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SizedBox(
-        height: 400,
-        child: messages.isEmpty
-            ? Container()
-            : ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, index) => Column(
-                  crossAxisAlignment: messages[index].sender ==
-                          S.of(context).chatOwnMessageSender
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      messages[index].sender,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(messages[index].content),
-                  ],
+    final pHeight = MediaQuery.of(context).size.height;
+
+    return Column(
+      children: [
+        SizedBox(
+          height: pHeight * 0.46,
+          child: messages.isEmpty
+              ? Container()
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) => Column(
+                    crossAxisAlignment: messages[index].sender ==
+                            S.of(context).chatOwnMessageSender
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        messages[index].sender,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(messages[index].content),
+                    ],
+                  ),
                 ),
-              ),
-      ),
-      BottomAppBar(
-        child: ListView(
-          shrinkWrap: true,
-          children: writeSection,
         ),
-      ),
-    ]);
+        SizedBox(
+          height: pHeight * 0.15,
+          child: BottomAppBar(
+            child: ListView(
+              shrinkWrap: false,
+              children: writeSection,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

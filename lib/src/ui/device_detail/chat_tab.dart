@@ -289,23 +289,25 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
               selectedReadCharacteristic == null ||
               selectedWriteCharacteristic == null
           ? _selectorInterface()
-          : Column(children: [
-              _chatInterface(),
-              // button to back to the service selector
-              ElevatedButton(
-                onPressed: () => setState(() {
-                  selectedService = null;
-                  selectedReadCharacteristic = null;
-                  selectedWriteCharacteristic = null;
-                }),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(Icons.arrow_back),
-                    const SizedBox(width: 8.0),
-                    Text(S.of(context).chatBackButtonText),
-                  ],
+          : Column(
+              children: [
+                _chatInterface(),
+                // button to back to the service selector
+                ElevatedButton(
+                  onPressed: () => setState(() {
+                    selectedService = null;
+                    selectedReadCharacteristic = null;
+                    selectedWriteCharacteristic = null;
+                  }),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Icon(Icons.arrow_back),
+                      const SizedBox(width: 8.0),
+                      Text(S.of(context).chatBackButtonText),
+                    ],
+                  ),
                 ),
-              ),
-            ]);
+              ],
+            );
 }

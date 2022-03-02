@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onChanged: (locale) {
           setState(() {
             S.load(locale!);
-            MyApp.of(context).setLocale(locale);
+            //MyApp.of(context).setLocale(locale);
           });
         },
       );

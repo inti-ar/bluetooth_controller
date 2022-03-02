@@ -340,6 +340,46 @@ class S {
       args: [],
     );
   }
+
+  /// `On`
+  String get chatOnMessage {
+    return Intl.message(
+      'On',
+      name: 'chatOnMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Off`
+  String get chatOffMessage {
+    return Intl.message(
+      'Off',
+      name: 'chatOffMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1`
+  String get chatOriginalTextOn {
+    return Intl.message(
+      '1',
+      name: 'chatOriginalTextOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0`
+  String get chatOriginalTextOff {
+    return Intl.message(
+      '0',
+      name: 'chatOriginalTextOff',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

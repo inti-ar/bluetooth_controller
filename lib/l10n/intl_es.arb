@@ -27,5 +27,9 @@
   "chatReadCharacteristicSelectorHint": "UUID de característica de lectura",
   "chatWriteCharacteristicSelectorHint": "UUID de característica de escritura",
   "chatBackButtonText": "Volver",
-  "bleTurnOnLocation": "Activar la ubicación"
+  "bleTurnOnLocation": "Activar la ubicación",
+  "chatOnMessage": "Encender",
+  "chatOffMessage": "Apagar",
+  "chatOriginalTextOn": "1",
+  "chatOriginalTextOff": "0"
 }
