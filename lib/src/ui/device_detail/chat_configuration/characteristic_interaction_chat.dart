@@ -1,11 +1,14 @@
 import 'dart:async';
 
-import '../../../generated/l10n.dart';
+import '../../../../generated/l10n.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:bluetooth_controller/src/ble/ble_device_interactor.dart';
 import 'package:provider/provider.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bluetooth_controller/src/ui/device_detail/chat_configuration/change_button_configuration_dialog.dart';
 
 // Message object
 class Message {
@@ -73,6 +76,16 @@ class _CharacteristicInteractionChatState
   late TextEditingController textEditingController;
   late StreamSubscription<List<int>>? subscribeStream;
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<String> _chatTextOn() async => _prefs.then((SharedPreferences prefs) {
+        return prefs.getString('textOn') ?? S.of(context).chatOriginalTextOn;
+      });
+
+  Future<String> _chatTextOff() async => _prefs.then((SharedPreferences prefs) {
+        return prefs.getString('textOff') ?? S.of(context).chatOriginalTextOff;
+      });
+
   @override
   void initState() {
     messages = <Message>[];
@@ -138,19 +151,37 @@ class _CharacteristicInteractionChatState
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-                onPressed: () => {
-                      textEditingController = TextEditingController(
-                          text: S.of(context).chatOriginalTextOn),
-                      writeCharacteristic()
-                    },
-                child: Text(S.of(context).chatOnMessage)),
+              onPressed: () async => {
+                textEditingController =
+                    TextEditingController(text: await _chatTextOn()),
+                writeCharacteristic()
+              },
+              onLongPress: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    ChangeButtonConfigurationDialog(
+                  title: S.of(context).chatOnTitle,
+                  prefKey: "textOn",
+                ),
+              ),
+              child: Text(S.of(context).chatOnTitle),
+            ),
             ElevatedButton(
-                onPressed: () => {
-                      textEditingController = TextEditingController(
-                          text: S.of(context).chatOriginalTextOff),
-                      writeCharacteristic()
-                    },
-                child: Text(S.of(context).chatOffMessage)),
+              onPressed: () async => {
+                textEditingController =
+                    TextEditingController(text: await _chatTextOff()),
+                writeCharacteristic()
+              },
+              onLongPress: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    ChangeButtonConfigurationDialog(
+                  title: S.of(context).chatOffTitle,
+                  prefKey: "textOff",
+                ),
+              ),
+              child: Text(S.of(context).chatOffTitle),
+            ),
           ],
         ),
         TextField(
@@ -158,7 +189,7 @@ class _CharacteristicInteractionChatState
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             icon: const Icon(Icons.message),
-            labelText: 'Message',
+            labelText: S.of(context).chatWriteMessageLabel,
             suffixIcon: IconButton(
               icon: const Icon(Icons.send),
               onPressed: writeCharacteristic,

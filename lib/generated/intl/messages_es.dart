@@ -22,13 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(status) => "Esperando para obtener el estado ${status}";
 
-  static String m1(connectionStatus) => "Estado: ${connectionStatus}";
+  static String m1(widgetTitle) =>
+      "Cambiar configuración del botón:\n \"${widgetTitle}\"";
 
-  static String m2(deviceID) => "ID: ${deviceID}";
+  static String m2(connectionStatus) => "Estado: ${connectionStatus}";
 
-  static String m3(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
+  static String m3(deviceID) => "ID: ${deviceID}";
 
-  static String m4(count) => "cantidad: ${count}";
+  static String m4(deviceID, deviceRSSI) => "${deviceID}\nRSSI: ${deviceRSSI}";
+
+  static String m5(count) => "cantidad: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -47,17 +50,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Activar Bluetooth"),
         "bleTurnOnLocation":
             MessageLookupByLibrary.simpleMessage("Activar la ubicación"),
+        "changeButtonConfigurationDialogCancelLabel":
+            MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "changeButtonConfigurationDialogSaveLabel":
+            MessageLookupByLibrary.simpleMessage("Guardar"),
+        "changeButtonConfigurationDialogTitle": m1,
         "chatBackButtonText": MessageLookupByLibrary.simpleMessage("Volver"),
         "chatConnect": MessageLookupByLibrary.simpleMessage("Conectar"),
-        "chatConnectionStatus": m1,
-        "chatDeviceID": m2,
+        "chatConnectionStatus": m2,
+        "chatDeviceID": m3,
         "chatDeviceMessageSender":
             MessageLookupByLibrary.simpleMessage("Dispositivo"),
         "chatDisconnect": MessageLookupByLibrary.simpleMessage("Desconectar"),
         "chatDiscoverServices":
             MessageLookupByLibrary.simpleMessage("Encontrar servicios"),
-        "chatOffMessage": MessageLookupByLibrary.simpleMessage("Apagar"),
-        "chatOnMessage": MessageLookupByLibrary.simpleMessage("Encender"),
+        "chatOffTitle": MessageLookupByLibrary.simpleMessage("Apagar"),
+        "chatOnTitle": MessageLookupByLibrary.simpleMessage("Encender"),
         "chatOriginalTextOff": MessageLookupByLibrary.simpleMessage("0"),
         "chatOriginalTextOn": MessageLookupByLibrary.simpleMessage("1"),
         "chatOwnMessageSender": MessageLookupByLibrary.simpleMessage("Yo"),
@@ -69,8 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatWriteCharacteristicSelectorHint":
             MessageLookupByLibrary.simpleMessage(
                 "UUID de característica de escritura"),
-        "deviceListDiscoveredDeviceSubtitle": m3,
-        "deviceListDiscoveredDevicesCount": m4,
+        "chatWriteMessageLabel":
+            MessageLookupByLibrary.simpleMessage("Mensaje"),
+        "deviceListDiscoveredDeviceSubtitle": m4,
+        "deviceListDiscoveredDevicesCount": m5,
         "deviceListInvalidUUID":
             MessageLookupByLibrary.simpleMessage("Formato de UUID inválido"),
         "deviceListScan": MessageLookupByLibrary.simpleMessage("Escanear"),

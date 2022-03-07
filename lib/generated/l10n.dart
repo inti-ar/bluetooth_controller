@@ -341,21 +341,21 @@ class S {
     );
   }
 
-  /// `On`
-  String get chatOnMessage {
+  /// `Turn On`
+  String get chatOnTitle {
     return Intl.message(
-      'On',
-      name: 'chatOnMessage',
+      'Turn On',
+      name: 'chatOnTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Off`
-  String get chatOffMessage {
+  /// `Turn Off`
+  String get chatOffTitle {
     return Intl.message(
-      'Off',
-      name: 'chatOffMessage',
+      'Turn Off',
+      name: 'chatOffTitle',
       desc: '',
       args: [],
     );
@@ -376,6 +376,46 @@ class S {
     return Intl.message(
       '0',
       name: 'chatOriginalTextOff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change "{widgetTitle}" button configuration`
+  String changeButtonConfigurationDialogTitle(Object widgetTitle) {
+    return Intl.message(
+      'Change "$widgetTitle" button configuration',
+      name: 'changeButtonConfigurationDialogTitle',
+      desc: '',
+      args: [widgetTitle],
+    );
+  }
+
+  /// `Save`
+  String get changeButtonConfigurationDialogSaveLabel {
+    return Intl.message(
+      'Save',
+      name: 'changeButtonConfigurationDialogSaveLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get changeButtonConfigurationDialogCancelLabel {
+    return Intl.message(
+      'Cancel',
+      name: 'changeButtonConfigurationDialogCancelLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get chatWriteMessageLabel {
+    return Intl.message(
+      'Message',
+      name: 'chatWriteMessageLabel',
       desc: '',
       args: [],
     );

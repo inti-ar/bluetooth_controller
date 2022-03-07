@@ -28,8 +28,12 @@
   "chatWriteCharacteristicSelectorHint": "UUID de característica de escritura",
   "chatBackButtonText": "Volver",
   "bleTurnOnLocation": "Activar la ubicación",
-  "chatOnMessage": "Encender",
-  "chatOffMessage": "Apagar",
+  "chatOnTitle": "Encender",
+  "chatOffTitle": "Apagar",
   "chatOriginalTextOn": "1",
-  "chatOriginalTextOff": "0"
+  "chatOriginalTextOff": "0",
+  "changeButtonConfigurationDialogTitle": "Cambiar configuración del botón:\n \"{widgetTitle}\"",
+  "changeButtonConfigurationDialogSaveLabel": "Guardar",
+  "changeButtonConfigurationDialogCancelLabel": "Cancelar",
+  "chatWriteMessageLabel": "Mensaje"
 }

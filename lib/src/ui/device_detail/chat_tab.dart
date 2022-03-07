@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 
-import 'characteristic_interaction_chat.dart';
+import 'chat_configuration/characteristic_interaction_chat.dart';
 
 part 'chat_tab.g.dart';
 //ignore_for_file: annotate_overrides
